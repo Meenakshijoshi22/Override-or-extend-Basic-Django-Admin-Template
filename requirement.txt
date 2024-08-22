@@ -1,0 +1,137 @@
+tool: vs code 
+python installed already
+django from command prompt.
+
+1. install django in the command prompt - "pip install django"
+
+2. start the project or create a new project directory - "django-admin startproject djangoproject"
+
+3. "cd djangoproject" - will navigate to the project in your system
+
+4. "python manage.py startapp myapp" -  this will create an app within your djangoproject
+
+5.Add this in your setting.py file present in djangoproject/djangoproject/
+
+INSTALLED_APPS = [
+    #...other apps
+    'myapp', # add this, the app created above
+]
+
+6. Configure the URLs for the "myapp" in the myapp directory create a new file name "urls.py" and add the following code:
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('profile/', views.profile_view, name='profile'),
+    path('custom-admin-dashboard/', views.custom_admin_dashboard, name='custom_admin_dashboard'),
+]
+
+7. create "views.py" file inside the "myapp" app/directory, add the following in it 
+
+from django.shortcuts import render
+from django.contrib.admin import site
+
+# Create your views here.
+def home(request):
+   return render(request, 'home.html')
+
+def profile_view(request):
+    return render(request, 'profile.html')
+
+def custom_admin_dashboard(request):
+    return render(request, 'admin/index1.html')
+
+8.Include app urls in the project in 'djangoproject' directory, open "urls.py" and modify it to include the apps urls:
+
+from django.contrib import admin
+from django.urls import path, include
+from myapp.views import profile_view,custom_admin_dashboard
+from django.contrib.auth import views as auth_views
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('myapp.urls')),  # Ensure 'myapp' is the name of your app
+    path('profile/', profile_view, name='profile'),
+     path('custom-admin-dashboard/', custom_admin_dashboard, name='custom_admin_dashboard'),
+]
+
+9. Set up the templates
+
+Create a Templates Directory:
+Inside djangoproject, create a directory named templates. Inside this directory, create base.html and home.html files  as given below structure.
+
+djangoproject/
+├── myapp/
+│   ├── migrations/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+│   └── urls.py
+├── templates/
+│   ├── admin/
+│   ├── base.html
+│   └── home.html
+├── staticfiles/
+│   │   └── admin/
+├── static/
+│   │   └── css/
+├── djangoproject/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+└── manage.py
+
+10. Start the Django development server: using "python manage.py runserver" but before this, you must be in the correct directory where your project is in the command prompt.
+
+11. now open the browser and go to "http://127.0.0.1:8000/" and then you can see your home page rendered with the content from base and home.html both together.
+
+12. also add "STATIC_URL = '/static/'" in the settings.py for the CSS file added in the base.html.
+
+13. all the changes in the settings.py for all the examples are given below
+
+1. in TEMPLATES = add the below path in DIRS
+
+'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+
+and add the "import os"
+
+2. When you deploy your Django project, you'll need to collect all static files into a single location using the collectstatic command:  "python manage.py collectstatic" in command prompt, and add "STATIC_ROOT = BASE_DIR / 'staticfiles'" this for the staticfiles we in settings.py
+
+3. add "LOGIN_REDIRECT_URL = '/admin/'" for the login.html file we created as shown in the example.
+
+4. STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+So, in 12 points all the changes made for the other examples are also included which we added in the article.
+
+13. for the login page you have to log in first so create a username and password for it in the command prompt using the below steps:
+ go to the directory where these files are stored,
+1. "python manage.py runserver"
+
+2. "python manage.py createsuperuser" - this will ask few things
+
+Username: admin
+Email address: admin@example.com
+Password: **********
+Password (again): **********
+Superuser created successfully.
+
+3. then go to the browser and open admin/ "http://127.0.0.1:8000/admin/" and login with those credentials.
+
+
+How to access these pages:
+http://127.0.0.1:8000/custom-admin-dashboard/ - for accessing the admin dashboard
+
+http://127.0.0.1:8000/ - This will navigate to home.html
+
+http://127.0.0.1:8000/admin/login/ - This will navigate to the admin login page and then the customized sidebar page will open.
+
