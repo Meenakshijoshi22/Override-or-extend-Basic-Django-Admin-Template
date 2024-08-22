@@ -1,0 +1,20 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Log in | Admin{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        <h1>Log in to the custom admin interface...</h1>
+        <form method="post" action="{% url 'admin:login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="extra-field">
+                <label for="security_question">Security Question:</label>
+                <input type="text" name="security_question" id="security_question" placeholder="Your favourite location?">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </form>
+    </div>
+{% endblock %}

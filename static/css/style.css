@@ -1,0 +1,21 @@
+/* static/css/style.css */
+.custom-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+}
+
+.custom-footer p {
+    margin: 0;
+    color: #333;
+}
+
+.custom-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.custom-footer a:hover {
+    text-decoration: underline;
+}

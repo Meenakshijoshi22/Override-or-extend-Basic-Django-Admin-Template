@@ -1,0 +1,43 @@
+{% extends "admin/index.html" %}
+
+{% block sidebar %}
+    {{ block.super }}
+    <div class="custom-sidebar">
+        <h2>Extra Links</h2>
+        <ul>
+            <li><a href="/admin/extra/">An extra link</a></li>
+            <li><a href="/admin/help/">Help Center</a></li>
+            <li><a href="/admin/settings/">Settings</a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block extrahead %}
+    <style>
+        .custom-sidebar {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .custom-sidebar h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .custom-sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .custom-sidebar ul li {
+            margin-bottom: 8px;
+        }
+        .custom-sidebar ul li a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .custom-sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
